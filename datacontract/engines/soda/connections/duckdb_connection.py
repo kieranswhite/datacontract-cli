@@ -119,6 +119,17 @@ def setup_s3_connection(con, server):
                     URL_STYLE '{url_style}'
                 );
             """)
+    else:
+        con.sql(f"""
+            CREATE OR REPLACE SECRET s3_secret (
+                TYPE S3,
+                PROVIDER CREDENTIAL_CHAIN,
+                REGION '{s3_region}',
+                ENDPOINT '{s3_endpoint}',
+                USE_SSL '{use_ssl}',
+                URL_STYLE '{url_style}'
+            );
+        """)            
 
     #     con.sql(f"""
     #                 SET s3_region = '{s3_region}';
